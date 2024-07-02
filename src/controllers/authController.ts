@@ -1,11 +1,10 @@
 import { Request, Response } from "express";
-import passport from "passport";
 import jwt from 'jsonwebtoken';
 import { errorResponse, successResponse } from "../helpers";
 import { IUser } from "../interfaces/User";
 import AuthService from "../services/AuthService";
 import UserRepository from "../repositories/UserRepository";
-
+import { API_RESPONSE_MESSAGE } from "../helpers/constants";
 
 export class AuthController {
 
@@ -28,6 +27,8 @@ export class AuthController {
 
     login = async (req: Request, res: Response) => {
         try {
+            const { email, password } = req.body;
+            const token = await this.authService.loginUser(email, password);
             return successResponse(req, res, {}, 200);
         } catch (error : any) {
             return errorResponse(req, res,error.message, error.statusCode || 500, error);
@@ -36,17 +37,11 @@ export class AuthController {
 
     handleGoogleLoginCallback = async (req: Request, res: Response) => {
         try {
-            console.log('google', req.user)
             if (!req.user) {
                 return res.redirect('/');
             }
-            const user = req.user as any;
-            const token = jwt.sign(
-                { id: user.id, email: user.email }, 
-                process.env.JWT_SECRET!, 
-                { expiresIn: '1h',}
-            );
 
+            const token = await this.authService.handleGoogleCallback(req.user);
             res.cookie('jwt', token, { httpOnly: true, secure: process.env.NODE_ENV === 'production' });
             
             /** Here instead of sending the token through api, we can redirect to the FE URL */
@@ -58,7 +53,9 @@ export class AuthController {
 
     forgotPassword = async (req: Request, res: Response) => {
         try {
-            return successResponse(req, res, {}, 200);
+            const { email } = req.body;
+            await this.authService.forgotPassword(email);
+            return successResponse(req, res, { message: API_RESPONSE_MESSAGE.SENT_EMAIL }, 200);
         } catch (error : any) {
             return errorResponse(req, res,error.message, error.statusCode || 500, error);
         }
@@ -66,7 +63,9 @@ export class AuthController {
 
     resetPassword = async (req: Request, res: Response) => {
         try {
-            return successResponse(req, res, {}, 200);
+            const { token, newPassword } = req.body;
+            await this.authService.resetPassword(token, newPassword);
+            return successResponse(req, res, { message: API_RESPONSE_MESSAGE.PASSWORD_RESET }, 200);
         } catch (error : any) {
             return errorResponse(req, res,error.message, error.statusCode || 500, error);
         }

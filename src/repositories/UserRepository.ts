@@ -22,6 +22,12 @@ class UserRepository implements IUserRepositoryInterface {
     getRoleByName(name: string): Promise<Role | null> {
         return this.roleRepository.findOne({where:{name}});
     }
+    findById(id: string) : Promise<User | null> {
+        return this.userRepository.findOne({where:{id}});
+    }
+    updateUser(user: User) : Promise<User> {
+        return this.userRepository.save(user);
+    }
 }
 
 export default UserRepository;
