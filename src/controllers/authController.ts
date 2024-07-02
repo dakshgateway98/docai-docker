@@ -2,15 +2,27 @@ import { Request, Response } from "express";
 import passport from "passport";
 import jwt from 'jsonwebtoken';
 import { errorResponse, successResponse } from "../helpers";
+import { IUser } from "../interfaces/User";
+import AuthService from "../services/AuthService";
+import UserRepository from "../repositories/UserRepository";
 
 
 export class AuthController {
 
+    private authService: AuthService;
+
+    constructor() {
+        const userRepository = new UserRepository();
+        this.authService = new AuthService(userRepository);
+    }
+
     register = async (req: Request, res: Response) => {
         try {
-            return successResponse(req, res, {}, 200);
+            const payload : IUser = req.body;
+            const user = this.authService.createUser(payload);
+            return successResponse(req, res, user, 200);
         } catch (error : any) {
-            return errorResponse(req, res,error.message, 500, error);
+            return errorResponse(req, res,error.message, error.statusCode || 500, error);
         }
     }
 
@@ -18,21 +30,9 @@ export class AuthController {
         try {
             return successResponse(req, res, {}, 200);
         } catch (error : any) {
-            return errorResponse(req, res,error.message, 500, error);
+            return errorResponse(req, res,error.message, error.statusCode || 500, error);
         }
     }
-
-    googleLogin = async (req: Request, res: Response) => {
-        try {
-            passport.authenticate('google', { scope: ['profile', 'email'] });
-            return successResponse(req, res, {}, 200);
-        } catch (error : any) {
-            return errorResponse(req, res,error.message, 500, error);
-        }
-    }
-
-    googleLoginCallback = passport.authenticate('google', { failureRedirect: '/' });
-    
 
     handleGoogleLoginCallback = async (req: Request, res: Response) => {
         try {
@@ -47,12 +47,12 @@ export class AuthController {
                 { expiresIn: '1h',}
             );
 
-            // Send token in the response or set a cookie
             res.cookie('jwt', token, { httpOnly: true, secure: process.env.NODE_ENV === 'production' });
-                    
+            
+            /** Here instead of sending the token through api, we can redirect to the FE URL */
             return successResponse(req, res, token, 200);
         } catch (error : any) {
-            return errorResponse(req, res,error.message, 500, error);
+            return errorResponse(req, res,error.message, error.statusCode || 500, error);
         }
     }
 
@@ -60,7 +60,7 @@ export class AuthController {
         try {
             return successResponse(req, res, {}, 200);
         } catch (error : any) {
-            return errorResponse(req, res,error.message, 500, error);
+            return errorResponse(req, res,error.message, error.statusCode || 500, error);
         }
     }
 
@@ -68,7 +68,7 @@ export class AuthController {
         try {
             return successResponse(req, res, {}, 200);
         } catch (error : any) {
-            return errorResponse(req, res,error.message, 500, error);
+            return errorResponse(req, res,error.message, error.statusCode || 500, error);
         }
     }
     

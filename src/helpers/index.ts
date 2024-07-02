@@ -30,4 +30,10 @@ export const successResponse = (req : Request, res : Response, data : any, code 
     return result;
   };
   
-  
+  export class AppError extends Error{
+    status:number;
+    constructor(message:string,status:number){
+      super(message);  
+      this.status=status;
+    }
+  }

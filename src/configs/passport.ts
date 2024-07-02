@@ -1,7 +1,7 @@
 import passport from "passport";
 import { Strategy as GoogleStrategy } from 'passport-google-oauth20';
 import { User } from "../models/User";
-import { GoogleProfile } from "../interfaces/User";
+import { GoogleProfile } from "../interfaces/Auth";
 
 passport.serializeUser(function(user, done) {
     done(null, user);
