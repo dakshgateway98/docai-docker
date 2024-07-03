@@ -7,9 +7,12 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "npx ts-node src/server.ts",
     "createDb": "npx ts-node src/scripts/createDb.ts",
+    "deleteDb": "npx ts-node src/scripts/deleteDb.ts",
+    "seed": "npx ts-node src/seeders/index.ts",
     "migration": "npx ts-node ./node_modules/typeorm/cli.js migration:run  -d ./ormconfig.ts",
     "migration:revert": "npx ts-node ./node_modules/typeorm/cli.js -d ./ormconfig.ts migration:revert",
-    "migration:generate": "npx ts-node ./node_modules/typeorm/cli.js migration:generate ./src/migration -d ./ormconfig.ts"
+    "migration:generate": "npx ts-node ./node_modules/typeorm/cli.js migration:generate ./src/migration -d ./ormconfig.ts",
+    "setup": "npx ts-node src/scripts/createDb.ts && npx ts-node ./node_modules/typeorm/cli.js migration:run  -d ./ormconfig.ts && npx ts-node src/seeders/index.ts"
   },
   "keywords": [],
   "author": "",

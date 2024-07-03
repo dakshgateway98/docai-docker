@@ -11,11 +11,15 @@ export const successResponse = (req : Request, res : Response, data : any, code 
     res : Response,
     errorMessage = 'Something went wrong',
     code = 500,
-    error = {},
+    error : any = {},
   ) => res.status(code).json({
     code,
     errorMessage,
-    error,
+    error: {
+      message: error.message,
+      status: error.status,
+      stack: process.env.NODE_ENV === 'development' ? error.stack : undefined // Show stack trace only in development
+  },
     data: null,
     success: false,
   });
@@ -35,5 +39,6 @@ export const successResponse = (req : Request, res : Response, data : any, code 
     constructor(message:string,status:number){
       super(message);  
       this.status=status;
+      Object.setPrototypeOf(this, AppError.prototype);
     }
   }

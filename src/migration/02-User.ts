@@ -25,6 +25,11 @@ export class User20240306230034 implements MigrationInterface {
                         type: "varchar"
                     },
                     {
+                        name: "addedOn",
+                        type: "timestamp",
+                        default: "now()"
+                    },
+                    {
                         name: "roleId",
                         type: "uuid"
                     },

@@ -39,7 +39,7 @@ class AuthService {
 
     async loginUser(email: string, password: string) : Promise<string> {
         const user = await this._userRepository.findByEmail(email);
-
+        console.log(password);
         if (!user || !await bcrypt.compare(password, user.password)) {
             throw new AppError(ERROR_MESSAGE.INVALID_CREDENTIALS, ERROR_CODE.UNAUTHORIZED);
         }
@@ -56,7 +56,6 @@ class AuthService {
     async handleGoogleCallback(profile : any) : Promise<string> {
         // Add the user to the DB if not exist
         let user = await this._userRepository.findByEmail(profile.emails[0].value);
-
         if(!user){
             const role = await this._userRepository.getRoleByName(ROLES.PATIENT);
             user = new User();
@@ -67,6 +66,8 @@ class AuthService {
             user.roleId = role ? role.id : '';
             user.googleId = profile.id;
             user.password = ''; 
+
+            await this._userRepository.createUser(user);
         }
         
         const token = jwt.sign(

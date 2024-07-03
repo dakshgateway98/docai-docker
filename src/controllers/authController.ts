@@ -18,7 +18,7 @@ export class AuthController {
     register = async (req: Request, res: Response) => {
         try {
             const payload : IUser = req.body;
-            const user = this.authService.createUser(payload);
+            const user = await this.authService.createUser(payload);
             return successResponse(req, res, user, 200);
         } catch (error : any) {
             return errorResponse(req, res,error.message, error.statusCode || 500, error);
@@ -29,9 +29,10 @@ export class AuthController {
         try {
             const { email, password } = req.body;
             const token = await this.authService.loginUser(email, password);
-            return successResponse(req, res, {}, 200);
+            return successResponse(req, res, token, 200);
         } catch (error : any) {
-            return errorResponse(req, res,error.message, error.statusCode || 500, error);
+            console.log(error);
+            return errorResponse(req, res,error.message, error.status || 500, error);
         }
     }
 
