@@ -18,7 +18,7 @@ export class Database {
             username: process.env.DB_USER,
             password: process.env.DB_PASS,
             database: process.env.DB_NAME,
-            port: 5432,
+            port: Number(process.env.DB_PORT),
             entities: ["src/models/*.ts"],
             migrations: ["src/migration/*.ts"],
             

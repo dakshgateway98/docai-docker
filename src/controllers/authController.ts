@@ -46,6 +46,7 @@ export class AuthController {
             res.cookie('jwt', token, { httpOnly: true, secure: process.env.NODE_ENV === 'production' });
             
             /** Here instead of sending the token through api, we can redirect to the FE URL */
+            // res.redirect('http://localhost:3000/');
             return successResponse(req, res, token, 200);
         } catch (error : any) {
             return errorResponse(req, res,error.message, error.statusCode || 500, error);
