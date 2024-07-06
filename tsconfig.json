@@ -107,9 +107,7 @@
     "skipLibCheck": true                                 /* Skip type checking all .d.ts files. */
   },
   "include": [
-      "src", 
-      "src/app.ts", 
-      "src/server.ts"    
+      "src", "ormconfig.ts"
     ],
   "exclude": [
       "node_modules"

@@ -19,9 +19,8 @@ export class Database {
             password: process.env.DB_PASS,
             database: process.env.DB_NAME,
             port: Number(process.env.DB_PORT),
-            entities: ["src/models/*.ts"],
-            migrations: ["src/migration/*.ts"],
-            
+            entities: ["dist/src/models/*.js"],
+            migrations: ["dist/src/migration/*.js"],  
         });
       } catch (error) {
         console.error('Failed to create database instance:', error);
