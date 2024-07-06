@@ -9,6 +9,7 @@ export interface IUser {
     addedOn : Date;
     googleId : string;
     roleId : string;
+    isActive : boolean;
 }
 export interface IUserRepositoryInterface {
     createUser(user : User) : Promise<User>;

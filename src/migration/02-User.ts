@@ -36,6 +36,10 @@ export class User20240306230034 implements MigrationInterface {
                     {
                         name: "googleId",
                         type: "varchar"
+                    },
+                    {
+                        name: "isActive",
+                        type: "boolean"
                     }
                 ]
             })
