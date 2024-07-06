@@ -39,7 +39,12 @@ jobs:
         run: npm run build
 
       - name: Debug connection
-        run: echo "DB_HOST: $DB_HOST, DB_USER: $DB_USER, DB_NAME: $DB_NAME"
+        run: |
+          echo "DB_HOST: $DB_HOST"
+          echo "DB_USER: $DB_USER"
+          echo "DB_PASS: $DB_PASS"
+          echo "DB_NAME: $DB_NAME"
+          echo "DB_PORT: $DB_PORT"
 
       - name: Deploy to DigitalOcean
         uses: appleboy/ssh-action@v0.1.5
