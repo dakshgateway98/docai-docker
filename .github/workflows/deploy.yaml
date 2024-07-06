@@ -31,7 +31,7 @@ jobs:
           username: ${{ secrets.DO_USERNAME }}
           key: ${{ secrets.DO_SSH_KEY }}
           script: |
-            cd doc-ai-backend
+            cd doc-ai-backend/DocAi
             git pull origin main
             npm install
             npm run build
