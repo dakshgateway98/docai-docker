@@ -24,6 +24,9 @@ export class User extends BaseEntity{
     @Column()
     roleId: string;
 
+    @Column()
+    isActive: boolean;
+
     @ManyToOne(() => Role, role => role.id)
     @JoinColumn({ name: "roleId" })
     role: Role;
