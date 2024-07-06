@@ -56,17 +56,13 @@ jobs:
             cd doc-ai-backend/DocAi
             git remote set-url origin git@github.com:bratinkundu/DocAi.git
             git pull origin main
-            PORT=$PORT \
-            GOOGLE_CLIENT_ID=$GOOGLE_CLIENT_ID \
-            GOOGLE_CLIENT_SECRET=$GOOGLE_CLIENT_SECRET \
-            JWT_SECRET=$JWT_SECRET \
-            EMAIL_ID=$EMAIL_ID \
-            DB_HOST=$DB_HOST \
-            DB_USER=$DB_USER \
-            DB_PASS=$DB_PASS \
-            DB_NAME=$DB_NAME \
-            DB_PORT=$DB_PORT \
-            DB_DIALECT=$DB_DIALECT \
+            export PORT=$PORT
+            export DB_HOST=$DB_HOST
+            export DB_USER=$DB_USER
+            export DB_PASS=$DB_PASS
+            export DB_NAME=$DB_NAME
+            export DB_PORT=$DB_PORT
+            export DB_DIALECT=$DB_DIALECT
             npm install
             npm run build
             npm start
