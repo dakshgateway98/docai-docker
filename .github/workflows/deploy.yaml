@@ -56,6 +56,27 @@ jobs:
             cd doc-ai-backend/DocAi
             git remote set-url origin git@github.com:bratinkundu/DocAi.git
             git pull origin main
+
+             # Debugging: Print environment variables to a file
+            echo "PORT: $PORT" >> debug_env.txt
+            echo "GOOGLE_CLIENT_ID: $GOOGLE_CLIENT_ID" >> debug_env.txt
+            echo "GOOGLE_CLIENT_SECRET: $GOOGLE_CLIENT_SECRET" >> debug_env.txt
+            echo "JWT_SECRET: $JWT_SECRET" >> debug_env.txt
+            echo "EMAIL_ID: $EMAIL_ID" >> debug_env.txt
+            echo "EMAIL_PASSWORD: $EMAIL_PASSWORD" >> debug_env.txt
+            echo "DB_HOST: $DB_HOST" >> debug_env.txt
+            echo "DB_USER: $DB_USER" >> debug_env.txt
+            echo "DB_PASS: $DB_PASS" >> debug_env.txt
+            echo "DB_NAME: $DB_NAME" >> debug_env.txt
+            echo "DB_PORT: $DB_PORT" >> debug_env.txt
+            echo "DB_DIALECT: $DB_DIALECT" >> debug_env.txt
+
+            # Output the content of debug_env.txt
+            cat debug_env.txt
+
+            # Debugging: Test database connection
+            psql -h $DB_HOST -U $DB_USER -d $DB_NAME -p $DB_PORT -c '\conninfo'
+
             export PORT=$PORT
             export DB_HOST=$DB_HOST
             export DB_USER=$DB_USER
