@@ -50,4 +50,4 @@ jobs:
             source ~/.bashrc
             npm install
             npm run build
-            npm start
+            pm2 restart node-app
