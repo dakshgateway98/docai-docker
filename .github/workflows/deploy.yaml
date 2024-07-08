@@ -45,7 +45,7 @@ jobs:
           username: ${{ secrets.DO_USERNAME }}
           key: ${{ secrets.DO_SSH_KEY }}
           script: |
-            cd /backend/DocAi
+            cd backend/DocAi
             git pull origin main
 
             export APP_PORT=$APP_PORT
