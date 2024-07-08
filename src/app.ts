@@ -22,6 +22,10 @@ app.use(passport.session());
 // Database connection
 Database.getInstance().initialize().then(() => {console.log("Database initialized!")}).catch((err) => {console.log("Error with database connection::", err)})
 
+app.get('/health', (req, res) => {
+  return res.send(`This is DocAI backend working fine!`);
+});
+
 // Error handling middleware
 app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
   console.error(err.stack);

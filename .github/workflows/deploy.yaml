@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      PORT: ${{ secrets.PORT }}
+      APP_PORT: ${{ secrets.APP_PORT }}
       GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
       GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
       JWT_SECRET: ${{ secrets.JWT_SECRET }}
@@ -38,14 +38,6 @@ jobs:
       - name: Build the project
         run: npm run build
 
-      - name: Debug connection
-        run: |
-          echo "DB_HOST: $DB_HOST"
-          echo "DB_USER: $DB_USER"
-          echo "DB_PASS: $DB_PASS"
-          echo "DB_NAME: $DB_NAME"
-          echo "DB_PORT: $DB_PORT"
-
       - name: Deploy to DigitalOcean
         uses: appleboy/ssh-action@v0.1.5
         with:
@@ -53,37 +45,22 @@ jobs:
           username: ${{ secrets.DO_USERNAME }}
           key: ${{ secrets.DO_SSH_KEY }}
           script: |
-            cd doc-ai-backend/DocAi
-            git remote set-url origin git@github.com:bratinkundu/DocAi.git
+            cd /backend/DocAi
             git pull origin main
 
-             # Debugging: Print environment variables to a file
-            echo "PORT: $PORT" >> debug_env.txt
-            echo "GOOGLE_CLIENT_ID: $GOOGLE_CLIENT_ID" >> debug_env.txt
-            echo "GOOGLE_CLIENT_SECRET: $GOOGLE_CLIENT_SECRET" >> debug_env.txt
-            echo "JWT_SECRET: $JWT_SECRET" >> debug_env.txt
-            echo "EMAIL_ID: $EMAIL_ID" >> debug_env.txt
-            echo "EMAIL_PASSWORD: $EMAIL_PASSWORD" >> debug_env.txt
-            echo "DB_HOST: $DB_HOST" >> debug_env.txt
-            echo "DB_USER: $DB_USER" >> debug_env.txt
-            echo "DB_PASS: $DB_PASS" >> debug_env.txt
-            echo "DB_NAME: $DB_NAME" >> debug_env.txt
-            echo "DB_PORT: $DB_PORT" >> debug_env.txt
-            echo "DB_DIALECT: $DB_DIALECT" >> debug_env.txt
-
-            # Output the content of debug_env.txt
-            cat debug_env.txt
-
-            # Debugging: Test database connection
-            psql -h $DB_HOST -U $DB_USER -d $DB_NAME -p $DB_PORT -c '\conninfo'
-
-            export PORT=$PORT
+            export APP_PORT=$APP_PORT
             export DB_HOST=$DB_HOST
             export DB_USER=$DB_USER
             export DB_PASS=$DB_PASS
             export DB_NAME=$DB_NAME
             export DB_PORT=$DB_PORT
             export DB_DIALECT=$DB_DIALECT
+            export GOOGLE_CLIENT_ID=$GOOGLE_CLIENT_ID
+            export GOOGLE_CLIENT_SECRET=$GOOGLE_CLIENT_SECRET
+            export JWT_SECRET=$JWT_SECRET
+            export EMAIL_ID=$EMAIL_ID
+            export EMAIL_PASSWORD=$EMAIL_PASSWORD
+            
             npm install
             npm run build
             npm start
