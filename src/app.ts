@@ -3,6 +3,7 @@ import dotenv from 'dotenv';
 import cookieParser from 'cookie-parser';
 import session from 'express-session';
 import passport from 'passport';
+import cors from 'cors';
 import  {Database}  from './configs/Database';
 import authRoutes from './routes/auth';
 import aiRoutes from './routes/ai';
@@ -14,6 +15,7 @@ dotenv.config();
 const app: Application = express();
 
 // Middleware
+app.use(cors());
 app.use(express.json());
 app.use(cookieParser());
 app.use(session({ secret: 'myseessiioonn', resave: false, saveUninitialized: true }));
