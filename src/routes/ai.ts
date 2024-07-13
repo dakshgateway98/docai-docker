@@ -7,7 +7,7 @@ const upload = multer({ dest: 'uploads/' });
 
 const aiController = new AiController();
 
-router.post('/generate-text', upload.array('images'), (req, res) => aiController.generateResponse);
+router.post('/generate-text', upload.array('images'), aiController.generateResponse);
 
 
 export default router;

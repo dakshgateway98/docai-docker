@@ -1,7 +1,8 @@
 import { Request, Response } from "express";
+import fs from 'fs/promises';
 import { AppError, errorResponse, successResponse } from "../helpers";
 import { AISTRATEGY, ERROR_CODE } from "../helpers/constants";
-import { AIService, createAIService } from "../services/AIService";
+import { createAIService } from "../services/AIService";
 
 export class AiController {
 
@@ -11,9 +12,9 @@ export class AiController {
     }
 
     generateResponse = async (req: Request, res: Response) => {
+        const { prompt } = req.body;
+        const files = req.files as Express.Multer.File[];
         try {
-            const { prompt } = req.body;
-            const files = req.files as Express.Multer.File[];
 
             if (!prompt || !files.length) {
                 throw new AppError('Prompt and images are required', ERROR_CODE.NOT_FOUND);
@@ -29,6 +30,9 @@ export class AiController {
 
         } catch (error : any) {
             return errorResponse(req, res,error.message, error.statusCode || 500, error);
+        }
+        finally {
+            await Promise.all(files.map(file => fs.unlink(file.path)));
         }
     }
 }

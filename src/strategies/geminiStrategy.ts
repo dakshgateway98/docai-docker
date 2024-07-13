@@ -15,16 +15,14 @@ export class GeminiStrategy implements AIStrategy{
     }
 
     async generateResponse(prompt: string, images : any[]): Promise<string> {
-        
         let imageParts : any[] = [];
         images.forEach(element => {
-            imageParts.push(this.fileToGenerativePart(element.path, element.mimeType));
+            imageParts.push(this.fileToGenerativePart(element.path, element.mimetype));
         });
         
         const result = await this.genAIModel.generateContent([prompt, ...imageParts]);
         const response = result.response;
         const text = response.text();
-        console.log(text);
 
         return text;
     }
@@ -36,5 +34,5 @@ export class GeminiStrategy implements AIStrategy{
             mimeType
           },
         };
-      }
+    }
 }
