@@ -28,3 +28,8 @@ export const API_RESPONSE_MESSAGE = {
     SENT_EMAIL : 'Password reset email sent',
     PASSWORD_RESET : 'Password has been reset'
 }
+
+export const AISTRATEGY = {
+    DEFAULT_STRATEGY : 'gemini',
+    GEMINI_MODEL: "gemini-1.5-flash"
+}
