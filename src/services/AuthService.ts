@@ -107,7 +107,7 @@ class AuthService {
             { expiresIn: '1h' }
         );
 
-        const resetUrl = `${process.env.FRONTEND_URL}/reset-password?token=${resetToken}`;
+        const resetUrl = `${process.env.FRONTEND_URL}/verify?token=${resetToken}`;
         const emailContent = `<p>You requested a password reset. Click <a href="${resetUrl}">here</a> to reset your password. This link will expire in 1 hour.</p>`;
         await mailFunc(user.email, emailContent, EMAIL_SUBJECTS.PASSWORD_RESET);
         user.isActive = false;
