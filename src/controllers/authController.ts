@@ -31,7 +31,6 @@ export class AuthController {
             const token = await this.authService.loginUser(email, password);
             return successResponse(req, res, token, 200);
         } catch (error : any) {
-            console.log(error);
             return errorResponse(req, res,error.message, error.status || 500, error);
         }
     }
@@ -43,11 +42,11 @@ export class AuthController {
             }
 
             const token = await this.authService.handleGoogleCallback(req.user);
-            res.cookie('jwt', token, { httpOnly: true, secure: process.env.NODE_ENV === 'production' });
+            res.cookie('jwt', token, { secure: process.env.NODE_ENV === 'production' });
             
             /** Here instead of sending the token through api, we can redirect to the FE URL */
-            // res.redirect('http://localhost:3000/');
-            return successResponse(req, res, token, 200);
+            return res.redirect(`${process.env.FRONTEND_URL}/home`);
+            // return successResponse(req, res, token, 200);
         } catch (error : any) {
             return errorResponse(req, res,error.message, error.statusCode || 500, error);
         }
