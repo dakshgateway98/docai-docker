@@ -3,6 +3,7 @@ import fs from 'fs/promises';
 import { AppError, errorResponse, successResponse } from "../helpers";
 import { AISTRATEGY, ERROR_CODE } from "../helpers/constants";
 import { createAIService } from "../services/AIService";
+import { PREDEFINED_PROMPT } from "../helpers/predefinedPrompt";
 
 export class AiController {
 
@@ -12,11 +13,12 @@ export class AiController {
     }
 
     generateResponse = async (req: Request, res: Response) => {
-        const { prompt } = req.body;
+        const { prompt:clinicalNotePrompt } = req.body;
+        const finalPrompt = PREDEFINED_PROMPT.XRAY + clinicalNotePrompt;
         const files = req.files as Express.Multer.File[];
         try {
 
-            if (!prompt || !files.length) {
+            if (!clinicalNotePrompt || !files.length) {
                 throw new AppError('Prompt and images are required', ERROR_CODE.NOT_FOUND);
             }
 
@@ -25,7 +27,7 @@ export class AiController {
                 mimetype: file.mimetype,
             }));
             
-            const response = await this.aiService.generateResponse(prompt, imageDetails);
+            const response = await this.aiService.generateResponse(finalPrompt, imageDetails);
             return successResponse(req, res, response, 200);
 
         } catch (error : any) {
