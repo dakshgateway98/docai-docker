@@ -7,6 +7,7 @@ import cors from 'cors';
 import  {Database}  from './configs/Database';
 import authRoutes from './routes/auth';
 import aiRoutes from './routes/ai';
+import userRoutes from './routes/user';
 import './configs/passport';
 
 
@@ -37,6 +38,7 @@ app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
 
 // Routes
 app.use('/api/auth', authRoutes);
+app.use('/api', userRoutes)
 app.use('/api/pub', aiRoutes);
 
 export default app;

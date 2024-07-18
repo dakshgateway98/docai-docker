@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import fs from 'fs/promises';
 import { AppError, errorResponse, successResponse } from "../helpers";
-import { AISTRATEGY, ERROR_CODE } from "../helpers/constants";
+import { AISTRATEGY, ERROR_CODE, ERROR_MESSAGE, REPORT_TYPES, ReportType } from "../helpers/constants";
 import { createAIService } from "../services/AIService";
 import { PREDEFINED_PROMPT } from "../helpers/predefinedPrompt";
 
@@ -14,12 +14,13 @@ export class AiController {
 
     generateResponse = async (req: Request, res: Response) => {
         const { prompt:clinicalNotePrompt } = req.body;
-        const finalPrompt = PREDEFINED_PROMPT.XRAY + clinicalNotePrompt;
+        const type = req.body.type as ReportType || REPORT_TYPES.XRAY;
+        const finalPrompt = PREDEFINED_PROMPT[type] + clinicalNotePrompt;
         const files = req.files as Express.Multer.File[];
         try {
 
             if (!clinicalNotePrompt || !files.length) {
-                throw new AppError('Prompt and images are required', ERROR_CODE.NOT_FOUND);
+                throw new AppError(ERROR_MESSAGE.PROMPT_IMAGE_NOT_FOUND, ERROR_CODE.NOT_FOUND);
             }
 
             const imageDetails = files.map(file => ({
