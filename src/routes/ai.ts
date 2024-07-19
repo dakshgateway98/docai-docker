@@ -8,6 +8,6 @@ const upload = multer({ dest: 'uploads/' });
 const aiController = new AiController();
 
 router.post('/generate-text', upload.array('images'), aiController.generateResponse);
-
+router.get('/report-options', aiController.getAllOptions);
 
 export default router;
