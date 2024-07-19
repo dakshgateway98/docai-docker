@@ -1,5 +1,4 @@
 import { Request, Response } from "express";
-import jwt from 'jsonwebtoken';
 import { errorResponse, successResponse } from "../helpers";
 import { IUser } from "../interfaces/User";
 import AuthService from "../services/AuthService";
