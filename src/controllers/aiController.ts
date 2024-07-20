@@ -38,4 +38,13 @@ export class AiController {
             await Promise.all(files.map(file => fs.unlink(file.path)));
         }
     }
+
+    getAllOptions = async (req: Request, res: Response) => {
+        try {
+            const options = Object.values(REPORT_TYPES);
+            return successResponse(req, res, options, 200);
+        } catch (error : any) {
+            return errorResponse(req, res,error.message, error.statusCode || 500, error);
+        }
+    }
 }
