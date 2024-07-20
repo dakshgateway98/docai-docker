@@ -14,7 +14,7 @@ export class AiController {
 
     generateResponse = async (req: Request, res: Response) => {
         const { prompt:clinicalNotePrompt } = req.body;
-        const type = req.body.type as ReportType || REPORT_TYPES.XRAY;
+        const type = req.body.type as ReportType || REPORT_TYPES.XRAY.name;
         const finalPrompt = PREDEFINED_PROMPT[type] + clinicalNotePrompt;
         const files = req.files as Express.Multer.File[];
         try {

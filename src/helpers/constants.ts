@@ -37,9 +37,9 @@ export const AISTRATEGY = {
 }
 
 export const REPORT_TYPES = {
-    XRAY : 'XRAY',
-    BLOOD_REPORT : 'BLOOD_REPORT',   
-    CT_SCAN : 'CT_SCAN'
+    XRAY : { id: 1, name: 'XRAY' , displayName: 'X-Ray'},
+    BLOOD_REPORT : { id: 2, name: 'BLOOD_REPORT', displayName: 'Blood Report'},
+    CT_SCAN : { id: 3, name: 'CT_SCAN', displayName: 'CT Scan'}
 }
 
 export type ReportType = keyof typeof REPORT_TYPES;

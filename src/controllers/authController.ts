@@ -44,7 +44,7 @@ export class AuthController {
             res.cookie('jwt', token, { secure: process.env.NODE_ENV === 'production' });
             
             /** Here instead of sending the token through api, we can redirect to the FE URL */
-            return res.redirect(`${process.env.FRONTEND_URL}/home`);
+            return res.redirect(`${process.env.FRONTEND_URL}/docai/home`);
             // return successResponse(req, res, token, 200);
         } catch (error : any) {
             return errorResponse(req, res,error.message, error.statusCode || 500, error);
