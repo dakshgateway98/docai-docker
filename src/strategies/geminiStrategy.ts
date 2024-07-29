@@ -13,12 +13,13 @@ export class GeminiStrategy implements AIStrategy{
 
     constructor(){
         const geminiAppKey = process.env.GEMINI_APP_KEY || '';
-        console.log('GEMINI App Key: ' + geminiAppKey);
         this.client = new GoogleGenerativeAI(geminiAppKey);
         this.genAIModel = this.client.getGenerativeModel({ model: AISTRATEGY.GEMINI_MODEL});
     }
 
     async generateResponse(prompt: string, images : any[]): Promise<string> {
+        console.log('GEMINI App Key: ' + process.env.GEMINI_APP_KEY);
+
         let imageParts : any[] = [];
         images.forEach(element => {
             imageParts.push(this.fileToGenerativePart(element.path, element.mimetype));
