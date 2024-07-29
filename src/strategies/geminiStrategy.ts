@@ -2,6 +2,9 @@ import { GenerativeModel, GoogleGenerativeAI } from "@google/generative-ai";
 import { AIStrategy } from "../interfaces/AiStrategy";
 import { AISTRATEGY } from "../helpers/constants";
 import fs from 'fs';
+import dotenv from 'dotenv';
+
+dotenv.config()
 
 export class GeminiStrategy implements AIStrategy{
 
