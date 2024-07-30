@@ -6,6 +6,9 @@ import dotenv from 'dotenv';
 
 dotenv.config()
 
+console.log('GEMINI_APP_KEY from .env:', process.env.GEMINI_APP_KEY);
+
+
 export class GeminiStrategy implements AIStrategy{
 
     private client : GoogleGenerativeAI;
