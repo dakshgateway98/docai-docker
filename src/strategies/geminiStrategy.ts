@@ -6,7 +6,7 @@ import dotenv from 'dotenv';
 
 dotenv.config()
 
-console.log('GEMINI_APP_KEY from .env:', process.env.GEMINI_APP_KEY);
+console.log('GEMINI_APP_KEY from .env:', process.env.GEMINI_APP_KEY , process.env.DB_HOST);
 
 
 export class GeminiStrategy implements AIStrategy{
@@ -21,7 +21,7 @@ export class GeminiStrategy implements AIStrategy{
     }
 
     async generateResponse(prompt: string, images : any[]): Promise<string> {
-        console.log('GEMINI App Key: ' + process.env.GEMINI_APP_KEY);
+        console.log('GEMINI App Key: ' + process.env.GEMINI_APP_KEY , process.env.DB_HOST);
 
         let imageParts : any[] = [];
         images.forEach(element => {
