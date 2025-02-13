@@ -1,0 +1,46 @@
+version: "3.8"
+
+services:
+  frontend:
+    build:
+      context: ./front_end
+      dockerfile: Dockerfile
+    container_name: frontend_service
+    restart: always
+    ports:
+      - "5173:5173"  # Ensure this matches your Vite config
+    depends_on:
+      - backend
+    env_file:
+      - ./front_end/.env
+
+  backend:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    container_name: backend_service
+    restart: always
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+    env_file:
+      - ./.env
+    command: ["sh", "-c", "sleep 5 && npm start"]  # Delay to ensure DB is ready
+
+  db:
+    image: postgres:latest
+    container_name: postgres_db
+    restart: always
+    environment:
+      POSTGRES_USER: daksh
+      POSTGRES_PASSWORD: Jalpan@12
+      POSTGRES_DB: doc_ai
+    ports:
+      - "5432:5432"
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+
+volumes:
+  pg_data:
+
