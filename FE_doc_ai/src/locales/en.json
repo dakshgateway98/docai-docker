@@ -1,0 +1,23 @@
+{
+  "containers": {
+    "home": {
+      "title": "Home"
+    },
+    "login": {
+      "title": "Login"
+    },
+    "users": {
+      "title": "Users"
+    },
+    "user": {
+      "title": "User"
+    }
+  },
+  "components": {
+    "navbar": {
+      "home": "Home",
+      "login": "Login",
+      "users": "Users"
+    }
+  }
+}

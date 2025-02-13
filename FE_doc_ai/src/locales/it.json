@@ -1,0 +1,23 @@
+{
+  "containers": {
+    "home": {
+      "title": "Home"
+    },
+    "login": {
+      "title": "Entra"
+    },
+    "users": {
+      "title": "Utenti"
+    },
+    "user": {
+      "title": "Utente"
+    }
+  },
+  "components": {
+    "navbar": {
+      "home": "Home",
+      "login": "Entra",
+      "users": "Utenti"
+    }
+  }
+}

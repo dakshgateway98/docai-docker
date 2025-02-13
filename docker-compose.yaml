@@ -3,7 +3,7 @@ version: "3.8"
 services:
   frontend:
     build:
-      context: ./front_end
+      context: ./FE_doc_ai
       dockerfile: Dockerfile
     container_name: frontend_service
     restart: always
@@ -12,7 +12,7 @@ services:
     depends_on:
       - backend
     env_file:
-      - ./front_end/.env
+      - ./FE_doc_ai/.env
 
   backend:
     build:
