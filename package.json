@@ -15,7 +15,8 @@
     "migration": "./node_modules/typeorm/cli.js migration:run  -d ./dist/ormconfig.js",
     "migration:revert": "npx ts-node ./node_modules/typeorm/cli.js -d ./ormconfig.ts migration:revert",
     "migration:generate": "npx ts-node ./node_modules/typeorm/cli.js migration:generate ./src/migration -d ./ormconfig.ts",
-    "setup": "node ./dist/src/scripts/createDb.js && ./node_modules/typeorm/cli.js migration:run  -d ./dist/ormconfig.js && node ./dist/src/seeders/index.js"
+    "setup": "node ./dist/src/scripts/createDb.js && ./node_modules/typeorm/cli.js migration:run  -d ./dist/ormconfig.js && node ./dist/src/seeders/index.js" ,
+    "start-with-setup":  "npm run start"
   },
   "keywords": [],
   "author": "",

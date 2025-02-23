@@ -10,11 +10,17 @@ COPY package*.json ./
 # Install dependencies
 RUN npm install
 
-# Copy the rest of the backend code
+# # Copy the rest of the backend code
 COPY . .
+
+# Copy the backend_start.sh script and give it execute permissions
+COPY backend_start.sh /app/backend_start.sh
+RUN chmod +x /app/backend_start.sh
+
+RUN npm run build
 
 # Expose the port
 EXPOSE 8080
 
 # Start the backend
-CMD ["npm", "start"]
+CMD ["sh", "-c", "./backend_start.sh"]
