@@ -123,6 +123,7 @@ class AuthService {
         }
 
         const user = await this._userRepository.findById(decoded.id);
+        console.log({user})
         if (!user) {
             throw new AppError(ERROR_MESSAGE.INVALID_CREDENTIALS, ERROR_CODE.NOT_FOUND);
         }
@@ -130,7 +131,7 @@ class AuthService {
         const hashedPassword = await bcrypt.hash(newPassword, 10);
         user.password = hashedPassword;
         user.isActive = true;
-
+        console.log("updated User" , {user})
         await this._userRepository.updateUser(user);
     }
 }

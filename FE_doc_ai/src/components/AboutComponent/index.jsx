@@ -11,7 +11,7 @@ const AboutComponent = () => {
             <p className="max-w-[900px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
               DocAi is an innovative AI-powered medical reporting application that was founded in
               2024 by a team of healthcare professionals and technology experts. Our mission is to
-              revolution
+              revolution 
             </p>
           </div>
         </div>

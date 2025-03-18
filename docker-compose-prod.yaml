@@ -3,32 +3,30 @@ version: "3.8"
 services:
   frontend:
     build:
-      context: .
-      dockerfile: ./docker-config/local/FE/Dockerfile
+      context: ./FE_doc_ai
+      dockerfile: Dockerfile
+    container_name: frontend_service
     restart: always
     ports:
-      - "5173:5173"  
+      - "5173:5173"  # Ensure this matches your Vite config
     depends_on:
       - backend
-    volumes:
-      - ./FE_doc_ai/src:/app/src:delegated 
-      - ./docker-config/local/FE/frontend_start.sh:/app/frontend_start.sh
-      - /app/node_modules
     env_file:
       - ./FE_doc_ai/.env
 
   backend:
     build:
-      dockerfile: ./docker-config/local/BE/Dockerfile
+      context: ./
+      dockerfile: Dockerfile
+    container_name: backend_service
     restart: always
     ports:
       - "8080:8080"
     depends_on:
       - db
-    volumes:
-      - ./src:/app/src:delegated
     env_file:
       - .env
+    command: ["sh", "-c", "./backend_start.sh"] # Delay to ensure DB is ready
 
   db:
     image: postgres:latest
@@ -45,3 +43,4 @@ services:
 
 volumes:
   pg_data:
+
