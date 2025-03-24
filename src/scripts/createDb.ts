@@ -17,7 +17,7 @@ const datasource = new DataSource({
 (async () => {
     let queryRunner;
     try {
-        await datasource.initialize().then(()=> {console.log("Datasource initialized setup")})
+        await datasource.initialize().then(()=> {console.log("Datasource initialized setup is Done !!!")})
         queryRunner = datasource.createQueryRunner();
         await queryRunner.createDatabase(process.env.DB_NAME as string, true)
         console.log('Created database')

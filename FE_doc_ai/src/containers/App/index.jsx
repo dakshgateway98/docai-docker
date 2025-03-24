@@ -13,11 +13,13 @@ import { en, it } from '../../locales';
 import { routes } from '../../utils';
 import ProtectedRoute from './ProtectedRoute';
 
+
 // Lazy loading components
 const LandingPage = lazy(() => import('../LandingPage'));
 const LoginPage = lazy(() => import('../LoginPage'));
 const VerifyPage = lazy(() => import('../VerifyPage'));
 const HomePage = lazy(() => import('../HomePage'));
+const TaskBoard = lazy(() => import('../TaskBoard'));
 
 i18n.use(initReactI18next).init({
   lng: 'en',
@@ -53,6 +55,10 @@ const App = () => {
           <Route
             path={routes.home}
             element={<ProtectedRoute isLoggedIn={isLogged}><HomePage /></ProtectedRoute>}
+          />
+          <Route
+            path={routes.taskboard}
+            element={<ProtectedRoute isLoggedIn={isLogged}><TaskBoard /></ProtectedRoute>}
           />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>

@@ -15,6 +15,9 @@ RUN npm install
 # Install nodemon globally for auto-restart
 RUN npm install -g nodemon
 
+RUN npm install -g typescript
+
+
 # Copy the rest of the backend code
 COPY . .
 
@@ -22,7 +25,7 @@ EXPOSE 8080
 
 COPY ./docker-config/local/BE/backend_start.sh /app/backend_start.sh
 
-RUN chmod +x /app/backend_start.sh
+RUN chmod 777 /app/backend_start.sh
 
 # Start backend using nodemon for hot reloading
 
