@@ -12,7 +12,7 @@ export class Database {
   public static getInstance(): DataSource {
     console.log("🔍 Initializing Database Connection...");
 
-    const dbPassword = String(process.env.DB_PASSWORD || "").trim();  // Trim any unwanted characters
+    const dbPassword = String(process.env.DB_PASSWORD || process.env.DB_PASS || "").trim();
 
 
     if (!Database.instance) {

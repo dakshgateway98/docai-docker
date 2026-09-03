@@ -3,7 +3,7 @@ import * as dotenv from 'dotenv';
 
 dotenv.config();
 
-const dbPassword = String(process.env.DB_PASSWORD || "").trim();
+const dbPassword = String(process.env.DB_PASSWORD || process.env.DB_PASS || "").trim();
 
 export const AppDataSource = new DataSource({
     type: "postgres",

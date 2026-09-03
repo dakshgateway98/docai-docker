@@ -31,13 +31,13 @@ services:
       - .env
 
   db:
-    image: postgres:latest
+    image: postgres:16
     container_name: postgres_db
     restart: always
     environment:
-      POSTGRES_USER: daksh
-      POSTGRES_PASSWORD: Daksh$
-      POSTGRES_DB: doc_ai
+      POSTGRES_USER: ${POSTGRES_USER:-docai}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-changeme}
+      POSTGRES_DB: ${POSTGRES_DB:-doc_ai}
     ports:
       - "5432:5432"
     volumes:

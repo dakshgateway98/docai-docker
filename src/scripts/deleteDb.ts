@@ -9,7 +9,7 @@ const datasource = new DataSource({
     port: 5432,
     database: "postgres",
     username: process.env.DB_USER,
-    password: process.env.DB_PASS,
+    password: process.env.DB_PASSWORD || process.env.DB_PASS,
 });
 
 (async () => {

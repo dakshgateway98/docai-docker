@@ -3,7 +3,10 @@ import jwt from 'jsonwebtoken';
 import { ERROR_CODE, ERROR_MESSAGE } from '../helpers/constants';
 import { JwtPayload } from '../interfaces/Auth';
 
-const secretKey = process.env.JWT_SECRET || 'your-secret-key';
+const secretKey = process.env.JWT_SECRET;
+if (!secretKey) {
+  throw new Error('JWT_SECRET is not set');
+}
 
 
 export const authenticateJWT = (req: Request, res: Response, next: NextFunction) => {

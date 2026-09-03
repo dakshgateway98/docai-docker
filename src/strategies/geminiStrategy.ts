@@ -19,8 +19,6 @@ export class GeminiStrategy implements AIStrategy{
     }
 
     async generateResponse(prompt: string, images : any[]): Promise<string> {
-        console.log('GEMINI App Key: ' + process.env.GEMINI_APP_KEY , process.env.DB_HOST);
-
         let imageParts : any[] = [];
         images.forEach(element => {
             imageParts.push(this.fileToGenerativePart(element.path, element.mimetype));

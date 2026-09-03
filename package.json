@@ -1,7 +1,7 @@
 {
   "name": "docai-backend",
   "version": "1.0.0",
-  "description": "",
+  "description": "DocAI backend — Express, TypeORM, Gemini document assistant",
   "main": "server.js",
   "scripts": {
     "dev" : "nodemon",

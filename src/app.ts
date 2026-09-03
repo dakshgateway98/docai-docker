@@ -19,7 +19,11 @@ const app: Application = express();
 app.use(cors());
 app.use(express.json());
 app.use(cookieParser());
-app.use(session({ secret: 'myseessiioonn', resave: false, saveUninitialized: true }));
+app.use(session({
+  secret: process.env.SESSION_SECRET || process.env.JWT_SECRET || 'dev-only-change-me',
+  resave: false,
+  saveUninitialized: false,
+}));
 app.use(passport.initialize());
 app.use(passport.session());
 
